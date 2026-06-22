@@ -1,0 +1,203 @@
+                        +=================================+
+                        |  Introduction to PCB design     |
+                        +=================================+
+Based on the resource https://siliconwit.com/education/pcb-design-kicad/
+their structure of teaching is of the following sort...
+    1.The Board: What they are building, why it is useful, and the design choices behind it
+    2.Schematic Capture: Component selection, wiring, power distribution, ERC. Full walkthrough!
+    3.PCB Layout: Component placement strategy, routing, copper pours, design rules, DRC(Design RUle Checker)
+    4.Manufacturing Output: Gerbers, drill files, BOM(Bill of materials), and the manufacturing method for that lesson
+    (etching, CNC milling, or fab house) 
+    5.Build and Test: Soldering guidance, first power-on checklist, and minimal firmware to confirm the board works!
+
+
+                        +========================================================+
+                        |ATMEGA328P Breakout Board: Through-Hole PCB From scratch|
+                        +========================================================+
+Breadboards are fine for prototyping, but loose jumper wires fall out, stray capactiance causes noise, and the whole setup
+falls apart when you move it. A custom PCB turns a fragile prototype into a solid, reproducible circuit you can hand to someone else
+and it just works. 
+For this first lesson we will attempt a complete ATmega328P breakout board as a two-layer board so the files can be sent to JLCPCB.
+The board is compact(66x53mm with rounded corners and four mounting holes), uses only through-hole components, and runs the same chip
+as an arduino uno, but built from scratch.
+The ATmega328P sits in a DIP socket(a place to put the chip for pins), so once a chip is programmed on this board you can pop it out 
+and drop it into any other circuit.
+The board doubles as a chip programmer for production builds.
+  Schematic to PCB Workflow
+  ──────────────────────────────────────────
+  1. Schematic     2. Netlist      3. PCB Layout
+  ┌──────────┐    ┌──────────┐    ┌──────────┐
+  │ Place    │    │ Export   │    │ Import   │
+  │ symbols, │───►│ netlist  │───►│ footprts,│
+  │ wire nets│    │ (.net)   │    │ route    │
+  └──────────┘    └──────────┘    │ traces   │
+                                  └────┬─────┘
+  4. DRC           5. Gerbers          │
+  ┌──────────┐    ┌──────────┐         │
+  │ Check    │◄───│ Generate │◄────────┘
+  │ errors   │    │ mfg files│
+  └──────────┘    └──────────┘
+{This might be a length one!}
+[GOAL: A minimal but complete microcontroller board:ATmega328p in DIP-28 package, 16MHz crystal, ISP programming header, 5V power input with a
+voltage regulator, power LED< user LED, reset button, decoupling capacitors, and pin headers exposing all I/O. Everything a standalone AVR
+project needs!]
+
+{P.S the layout as described here is probably good practice to follow....something to keep in mind!!}
+
+BOARD SPECIFICATIONS....
+[Parameter]                             [Value]
+MCU                            ATmega328P-PU(DIP-28)
+
+Clock                         16 MHz crystal + 22pF load capacitors
+
+Power           7-12 via barrel jack J1 OR screw terminal J6(both reverse-polarity protected through D3)
+                regulated to 5V by LM7805(MOSFET). 5V direct input also possible via J4's + 5V and GND pins
+                users with regulated 5V supplies.
+
+Programming     6-pin ISP header(USBasp or Arduino-as-ISP) and 6-pin FTDI header(USB-serial cable, after
+                burning a bootloader)
+
+Chip Socket     28-pin DIP socket: program a chip on this board, pop it out, drop into any other circuit
+
+I/O             2x14-pin headers exposing all 20 usable GPIO plus AVCC, AREFF, VIN, RESET, +5V, GND
+
+LEDs            Power(green), User(red, on PB5/D13)
+
+Size            66x53mm with 3 mm rounded corners and 4xM3 mounting holes, two-layer(FCu and BCu)
+
+Components                    All through-hole
+
+{Board will be separated into seven subcircuits: power supply, MCU and clock, reset, ISP programming, FTDI 
+programming, LEDs, and I/O breakout. Each schematic-capture section below opens with a small ASCII diagram
+showing the topology, then walks through the steps to build into Kicad}
+
+
+Bill of Materials....
+[Ref]       [Component]     [Package]  [Quantity]       [Notes]
+U1          ATmega328P-PU     DIP-28       1            The MCU itself
+(socket)   28-DIP socket      DIP-28       1            Holds U1 so the chip can be swapped or transplanted
+U2          LM7805            TO-220       1            5V linear regulator
+D3     1N517 Schottky Diode   DO-41        1            Reverse-polarity protection on barrel jack input
+Y1        16 MHz crystal      HC-49S       1            
+C1,C2     22pF ceramic     Through-Hole    2            Crystal load capacitors
+C3,C4    100nF ceramic     Through-Hole    2            VCC and AVCC decoupling
+C5   10microF electrolytic Through-Hole    1            Regulator input
+C6   10mircoF electrolytic Through-Hole    1            Regulator Output
+C7   100nF ceramic         Through-Hole    1            AREF filter cap
+C8   100nF ceramic         Through-Hole    1            FTDI auto-reset cap(DTR to RESET)
+R1      10k Resistor       Through-Hole    1           Reset pull up Resistor
+R2      330 Resistor       Through-Hole    1           Power LED
+R3      330 Resistor       Through-Hole    1           User LED
+D1      Green LED 3mm      Through-Hole    1           Power indicator
+D2      Red LED 3mm        Through-Hole    1           User LED(PB5)
+SW1    Tactile switch 6mm  Through-Hole    1           Reset
+J1    DC barrel jack       Through-Hole    1           Power Input(7-12V)
+J2      2x3 pin header     2.54mm          1           ISP Programming
+J3,J4  1x14 female socket  2.54mm          2           I/O braekout(jumper-wire friendly)
+J5      1x6 pin header     2.54mm          1           FTDI USB-serial header
+J6  2-pin screw terminal   5.08mm pitch    1           Alternate 7-12V power input(parallel with J1)
+
+
+Open the Kicad application and click File > Project
+Name the project atmega328p-breakout and choose a location to save it. KiCad creates a .kicad_pro project file,
+a .kicad_sch schematic file, and a .kicad_pcb board file
+and as done before start with the schematic editor!
+
+
+                        +========================================================+
+                        |      KiCad Navigation Essentials: Schematic Editor     |
+                        +========================================================+
+KiCad is keyboard driven...here are a couple hotkeys that might prove useful to you....
++++
+[Navigation & Selection]
+{Action}                                 {How}
+--Pan                     Hold middle mouse button and drag(or right-click and drag)
+ 
+--Zoom                      Scroll wheel(zooms to cursor)
+
+--Cancel current Action                     Esc
+
+--Undo, Redo                        Ctrl+z, Ctrl+y
+
+--Save                                  Ctrl+s
++++
+[Placing Things(schematic editor)]
+{Action}                                 {How}
+--Add component                   Press A, type the part name, click to place
+
+--Duplicate selected 
+component(auto increments ref.)       Select, press Ctrl+D, click to drop the copy
+
+--Copy/Paste                      Ctrl+C/Ctrl+V(works for wires and labels too)
+
+--Add wire                          Press W, click the start pin, click the end pin
+
+--Add power port(+5V, GND)            Press P
+
+--Add net label(plain text)             Press L, Use for dense schematics or local connections
+
+--Add global label(text in a box)        Press Ctrl+L. Preferred for prominent named nets like VIN, RESET, MOSI
+
+--Add hierarchial label(arrow shape)          Press H. Only for multi-sheet hierarchial designs; skip on single sheet
+
+--Add no-connect flag(for unused MCU pins)        Press Q, click on the pin
++++
+[Editing Components]
+{Action}                                 {How}
+--Move(wires break off)                     Hover, press M, click to drop
+
+--Drag(wires stretch and stay attached)      Hover, press G, click to drop
+
+--Delete a wire segment                 Click the wire, press Delete
+
+--Rotate                                  Hover, press R
+
+--Mirror                                Hover, press X(Horizontal) or Y(vertical)
+
+--Delete                                Hover or select, press Delete
+
+--Edit value(e.g 10microF, 330)           Hover, press V, type the new value, Enter
+
+--Edit reference(e.g C2 to C5)             Hover over the reference text, double-click, type, Enter.
+                                            Or use full properties(E)
+
+--Edit all properties                       Hover, press E
+(reference, value , footprint)                                            
++++
+
+Instead of manually renaming components in numerical order you run...
+  --Tools > Annotate Schematic
+                        +========================================================+
+                        |        KiCad Navigation Essentials: PCB Editor         |
+                        +========================================================+
+Most actions in the PCB editor are reachable from the Place, Route, Edit and Inspect menus, with shortcut keys as faster equivalents
+once you know them. Here are a couple....
++++
+{Action}                          {Menu}                            {Shortcut}
+Start interactive router          Route> Route Single Track              X
+Place a via mid-route               Route > Place Via                    V
+Add a copper pour zone              Place > Draw Filled Zones            Ctrl+Shift+z
+Fill all zones                      Edit > Fill All Zones                B
+Unfill all zones                    Edit > Unfill All Zones              Ctrl+Shift+B
+Edit a track's width           (right-click track> Properties)           E
+Toggle lock on selection            (right-click > lock)                 L
++++
+
+                        +========================================================+
+                        |                    Power Supply                        |
+                        +========================================================+
+   J1 (7-12V)   D3                    LM7805 (U2)
+   ┌────────┐ ┌──────┐                ┌──────────┐
+   │ 1 Tip ●├─┤  ►|  ├─┬── IN (1) ────┤1        3├── OUT (3) ──┬──── +5V
+   │ 3 Sw  ●├×└──────┘ ├─► VIN        │ GND (2)  │             │
+   │ 2 Slv ●├──┐       │              └────┬─────┘             │
+   └────────┘  │       │                   │                   │
+               │      ─┴─                  │                  ─┴─
+               │   C5 ─┬─ 10uF             │               C6 ─┬─ 10uF
+               └───────┴───────────────────┴───────────────────┴── GND
+
+   J6 alternate input (parallel with J1, also covered by D3):
+   ┌────────┐
+   │ 1  + ●─├──► same node as J1 Tip (D3 anode)
+   │ 2  - ●─├──► same node as J1 Sleeve (GND)
+   └────────┘

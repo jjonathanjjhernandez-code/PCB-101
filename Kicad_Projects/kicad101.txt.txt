@@ -1,0 +1,159 @@
+                    ==========================================
+                                    KICAD INTRODUCTION
+                    ==========================================
+COOL.You want to make circuits?!?!?! Awesome let us see how we can do it!
+So you have the experience of taking out a white breadboard and messing around with
+wires and components to make your gizmos but have found yourself wondering if there was a cleaner and more
+tidier way to do so.....the answer is custom PCBS!
+The hard part about this is the software!
+Not only do you have the variety of software appications and the tedious task of connecting wires, ensuring your layers are entact
+and choosing the dimensions and components for your specific application, it can feel overwhelming. So for you to just explore and mess around
+to get used to the software we'll keep it simple using the guidelines directed from this website!
+https://www.build-electronic-circuits.com/kicad-tutorial/
+If you feel like you need a reference documentation for the Kicad software their website is quite helpful!
+https://docs.kicad.org/9.0/en/getting_started_in_kicad/getting_started_in_kicad.html
+Assuming you have already went through the process of instaling the application and have everything set up let us continue with the notion
+of....
+                    ==========================================
+                              Drawing your Schematics
+                    ==========================================
+Open up the Kicad Application
+1.To create a new project, click on the File menu[top left corner] and select New->Project
+Place a location within your own device to save your project and type a name for it. Then hit save
+Now your new project will be empty. It is now your job to first create a schematic, then later draw the board layout. You create the schematic from the 
+Schematic Layout Editor. Start it by double-clicking on the schmatic file on the left, or by clicking on the Schematic Layout Editor Button
+{P.S ENSURE THAT WHEN YOU DID DOWNLOAD THE KICAD APPLICATION THAT IT CAME WITH DEFAULT LIBRARIES FOR YOUR COMPONENTS!!!}
+
+
+2.You schematic is where you DRAW your circuit. First, you add the components you want. Then you add wires to show how to connect to your components.
+To add a component, click on the Place Symbol button on the toolbar on the right(or press A on the keyboard...which brings an interesting point that some of
+these buttons have shortcuts...) then click anywhere in your work area(the white void in front of you!)
+From there a pop up search up bar of sorts should pop up and that right there will be your component chooser(resistors,capacitors, terminals, batteries,LEDS, OPAMPS,TRANSISTORS etc)
+From there you can search through the long list of options!
+Now since we are currently dealing with the schematic editor the most important thing is just choosing a SYMBOL that best represents the component you want to add. Just keep that in mind
+So lets just add a battery,resistor, and an led.
+
+3.Just like how you would do on a breadboard you WILL need to add the wires to connect components together!
+You can do this with the wire button on the toolbar(or pressing W on the keyboard).
+If you place your mouse pointer over a component and press M on your keyboard, you Move the component without the wires. But if you press G, you drag the component with the wires attached.
+If you start moving or dragging a component but then change your mind, just press the Escape key on your keyboard(don't forget you also got a mouse!)
+
+4.In most cases, a component SHOULD have a value. For example, a resitor should have a resistance value. A battery should have a voltage value, etc.
+Click on the component of interest and push the keyboard E. You can also just right click on the component of interest and look for the option of "Properties..."
+
+For now let us just set the resitstor to 470 ohms, battery to 9 volts and for the LED we can write it as "2V RED" or something similar to indicate that you want to use a red LED with a 2V forware
+voltage.
+Note that the value you set to the component does nothing to your circuit. It just serves as a reminder for you, so that you will remember what value to use when you build your circuit.
+[P.S You will also take notice that the little table that you use to change the values of the components also allows you to add the footprint...something to keep in mind about!]
+
+
+5. The next step is to Annotate your schematic, which means to give the components a unique identifier. For example, if you have several resistors, they will be named R1,R2,R3 and so on by default.
+To do this, click on the Tools Menu, then choose Annotate Schematic
+For now leave the default options and click on the Annotate Button. Then close the window. Now you can see the have numbers like BT1, R1 and D1
+
+6.Before we can move on to drawing the board, there is one more thing you WILL need to do; adding footprints to your components.
+The footprint is EXACTLY WHAT will be PRINTED onto the board(so the real life component) for each componet.
+For example, for a through-hole resistor, you will choose a footprint with two holes, so that you will get two holes for soldering the resistor onto your board.
+{With experience and lots of reading we will soon learn what this meanS!}
+Click on the Tools menu and choose Assign Footprints...what should pop up is the library full of many components at your disposal for your components!
+The components should be as such....
+    --Resistor:
+    FootPrint Libraries: Resistor_THT(i am pretty sure this means through hole)
+    Filtered Footprints: Resistor_THT: R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal(you can right click on this option and check out onn the reference design footprint..also look for the 3D viewer to see your component!)
+    [You will find two resistor libraries among the standard KiCad libraries: Resistor_THT and Resistor_SMD
+    THT stands for Through-Hole Technology. That is the type of component where you put the legs inton holes on the board and solder on the other side. It is the classic type of component, often used by hobbyists as it is a bit
+    simpler to solder.
+    SMD stands for Surface Mount Device. That is the type of component that lies on top of the board. You solder them on the side. SMD is the standard type for modern electronics. They are smaller and take up less space.
+    ]
+    --Battery:
+    FootPrint Libraris: Connector_PinHeader_2.54mm
+    Filtered Footprints: PinHeader_1x02_P2.54mm_Vertical {take a look at the name PinHeader_1x02 a two pin terminal...}
+    --LED
+    FootPrint Libraries: LED_THT
+    Filtered Footprints: LED_D5.0mm
+[Click on "Apply, Save Schematic & Continue" button]
+
+7.It is easy to make errors, like forgettting to connect a component. Especially when you are drawing large circuits. To help you find these errors, use the tool Electrical Rules Check(ERC)
+Click on the Inspect Menu and choose Electrical Rules Check. 
+In the window that pops up, click on the Run button and look for error messages under Error list. A typical error here is IF you forgot to connect the pin of a component to another component.
+Or if you accidentally moved a componnet so that it is no longer connected(cause you know closed loop....).
+If there are no errors, you have finished the first phase of drawing the schematic. You can now move on to the second phase-DESIGNING YOUR BOARD!
+
+8.Schematic Design Checklist
+Here is a sanity checklist before we start moving on to the board design
+    --Added all components to your schematic(using the Place Symbol Button)
+    --Connect all components with wires(Wire button)
+    --Add values to all components(Using the Properties button for the component in question)
+    --Annotate your schematic(using the Annotate Button)
+    --Add Footprints to all components(using the Assign Footprints button)
+    --Run the Electrical Rules Checker(after assigning appropriate realistic properties using your footprint library push the ERC button) and fix any errors.
+and voila on the next phase!
+                    ==========================================
+                       Designing the Board for your Circuit
+                    ==========================================
+You have defined how you want to connect the components in the schematic editor, and now it is time to put that onto your board. You need to decide where to place the
+components, then draw tracks to create the connections between them.
+
+To start drawing your board layout from the Schematics Editor look for the Open PCB Editor. This opens up the Board Editor in a new window.
+The first thing you should see is just an empty area(kinda like the schematic editor when you first initialized it). To get started, you need to retrieve information about the footprints
+you just made in your schematic editor phase and the connections from your schematic as well.
+You can do this by just clicking on the toolbar button that says Update PCB from Schematic.
+Keep the default options and click on Update PCB Button.
+This will load the footprints. The click on the close buttion. Click anywhere to place the componets!
+
+If you zoom in on the components, you will see straight lines between the pins. These are called air-wires and tell you WHICH pins to connect-ACCORDING to your Schematic
+
+1.Your next task is to position your components so that it becomes easy to connect the components according to your air-wires. If you are able to place the components in a way that NO AIR-WIRES CORSS,
+this will be good for you.
+If it is possible do try to place the components as it was in the schematic. It not so important for a simple board, but for more complicated boards it can simply troubleshooting.
+To move a component move your mouse and click the component of interest. You can even click and drag and select a group of components to move together!
+To deselect the group, press Escape. To rotate a component, press R. If you accidentally place your mouse over the component name, you move ONLY the name. Just press Escape to try again.
+DO NOTE: It is possible to place components BOTH on the FRONT side and on the BACK side. To change the side of a component, right click on it and select properties.
+Then look for the Board Side option to select on which side to place the component.
+
+2.When you are content with the placement of your components, yhe next step is to replace the air-wires by drawing tracks to connect the components. The tracks you draw will become copper traces on your finished board.
+Start drawing tracks by clicking on the Route Tracks button on the toolbar on the right.
+You can choose if you want to draw on the front or the back of the board, by selecting a LAYER in the Layer Manager
+    --FCU si the front side
+    --BCU is the back side
+When you use the through-hole components, you can connect tracks to them on both sides of the board. But if you use surface mount components, you can only connect tracks on the side where the component is placed.
+Click at the beginning of an AIR-WIRE to start drawing a track. CLick again where the aire-wire ends to finish drawing the track.
+
+3.Next, you need to draw the outline of your board. To do this, you need to add a polygon on the Edge cuts layer. Click on the Add Graphic polygon(or the draw polygon) button on the toolbar
+Click to start drawing the polygon. Click again for each corner. To complete the polygon, click at the point where you started.
+
+4.To check ig you have made any errors, you need to run the design rules checker(DRC). Typical errors are placing too components TOO close to each other or forgetting to draw tack.
+Click on the Design Rules Checker Button under the Inspect Menu. Leave the default optins and click on Run DRC button.
+Check both the Problems Tab and the Unconnected Items tab. The Problems tab will list any design issues, such as track being too close to another track wire. The Unconnected Items tab will list any air-wires that you have not
+connected by drawing a track.
+
+If you see any items on any of these tabs, make sure you fix them before moving on. If you have a lot of errors, do not despair. Often ONE little mistake can result in lots of messages. Just focus on one message and try to figure out
+what it says(if there are any).
+Then fix and run the DRC again.
+When you have zero errors listed here, you are done. Your board is finished! Click on the view menu and select 3D viewer to see your finished board!
+
+
+Schematic Design Checklist
+    --Open the Board Layout Editor and run update pcb from Schematics
+    --Place your components in an orderly way
+    --Draw all the tracks so that you have no more air-wires left
+    --Create your board edges by adding a polygon in the Edge. Cuts layer that encloses all your components and tracks.
+    --Run the Design Rules Checker and fix any errros that you might have.
+    --Check your design in the 3D viewer
+
+Once you feel like your board is up to spec. We need to generate some gerber files to submit to our favoriate manufacturer to print the PCBS!
+This is a format that all the usable software alternatives for designing PCBs can output, and that all PCB manufacturers can read.
+
+From the PCB editor in Kicad you can create Gerber files by going to the File menu and selecting Plot...Click on the Plot button to create the Gerber files.
+To create Drill files, click on Generate Drill Files... to open the Drill file dialog. Then click the button to Generate Drill FIle.
+There are a lot of options when generating these files. Often the PCB manufacturere you want to use will have instructions on what options to choose.
+
+Once generated some files will pop up...fret not! The files are separated like so....
+    --F_Cu/B_Cu - the copper traces(front and back)
+    --F_Mask/B_Mask - solder mask(the colored part)
+    --F_Silkscreen/B_Silkscreen - the component labels/outlines
+    --Edge_Cuts - the board outline(tells them where to cut)
+    --.gbr paste files(F_Paste/B_paste)- only needed if you are ordering a stencil, which is a separate product
+    --.gbrjob file - that is a metadata/summary file for the Kicad itself, not needed by the manufacturer
+    --All the .kicad* project files - these files are your source files....keep those safe locally!
+    

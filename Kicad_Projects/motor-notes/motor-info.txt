@@ -1,0 +1,110 @@
+                                ======================
+                                        MOTORS!
+                                ======================
+One of the most entertaining things to do with electronics is make some mechanical device move. Three very popular devices
+used "to make things move" include dc motors, RC servos, and stepper motors.
+
+Plus who doesn't like seeing things rotate.
+[LINKS
+https://deepbluembedded.com/stm32-esc-pcb-design-foc-esc-bldc-schematic/
+]
+                                ======================
+                                         BLDC!
+                                ======================
+A BLDC(Brushless Direct Current motor) is an electric motor that runs on direct current but replaces the traditional mechanical brushes with electronic controls
+to spin the rotor. This design makes the motor efficient, longer-lasting, and quieter than its brushed counterpart.
+
+Every electric motor works on the same basic principle; magnets pushing and pulling against each other to create rotation. In a BLDC motor, permanent magnets sit on the rotor
+(spinning part) while copper wire coils are arranged around the stator(the stationary part). When electricity flows through the coils, they generate magnetic fields that attract 
+and repel the permanent magnets, causing the rotor to spin.
+
+The key challenge is timing. To keep the rotor spinning smoothly, the coils need to switch on and off in the right sequence at exactly the right moment. In older brushed motors, 
+this switching happens mechanically through small carbon blocks(bruhses) that physically touch a spinning contact ring. In a BLDC motor, there are no physical contacts. Instead, 
+an electronic controller handles the switching by monitoring the rotor's position(either through sensors or back emf calculations) and energizing the correct coils at precisely
+the right instant. Most BLDC motors use small sensors called Hall effect sensors to detect where the rotor is at any given moment, though some designs skip the sensors entirely
+and estimate position based on electrical feedback from the coils themselves.
+
+BLDC motors come in two main configurations based on where the magnets and coils are positioned..
+        --Inrunner: The rotor spins inside the stator. This is the more traditional layout, it tends to produce higher RPMs in a compact package. Inrunners are common in hard drives,
+        small fans, and high-speed tools.
+        --Outrunner: The rotor is a shell that spins around the outside of the stator. This design produces more torque at low speeds, making it popular in drones, e-bikes, and Direct
+        -drive applications where you want strong rotation without gears.
+
+One of the biggest practical advantages of BLDC motors is how precisely you can control them. The electronic controller does not just switch coils on and off. It modulates the power 
+delivered to each coil using a technique called pulse width modulation(PWM), which rapidly switches the power on and off thousands of times per second. By adjusting the ratio of
+on-time to off-time, the controller can set any speed from a slow crawl to full RPM with very fine granularity.
+
+This electronic control also makes regenerative braking possible. When you want the motor to slow down, the controller can reverse the process, turning the motor into a generator that
+feeds energy back into the battery. Electric vehicles and e-bikes use this feature to extend range. The controller can also monitor current draw to protect from overheating, limit
+torque in delicate applications, or maintain a constant speed even when the load changes.
+
+The downside is that if the controller fails, the motor is completely dead. There is no fallback mode where you can just wire it to a battery. The motor and its controller are an
+inseperable system....and that is what we'll focus on...making the BLDC controller!!
+                                ======================
+                                    BLDC CONTROLLER!
+                                ======================
+The typical circuitry to drive a bldc motor consists of five modules:
+        --Control Module(MCU,DSP,FPGA): Runs the commutation algorithm(trapizodal, sine, Field-oriented control). It reads feedback, runs the PID/control loops, and outpurs PWM
+        signals to the gate drivers.
+        The control module needs to output 6 PWM signals - one for each transistor in the 3 half-bridges(high side and low side per phase)
+        --Gate Drivers: Mosfets need fast, high-current pulse to switch cleanly. The gate driver does the...
+                1.Level Shifting: High side MOSFETs have their source floating at the phase voltage, so the gate driver needs a bootstrap circuit or charge pump to drive them above
+                that
+                2.Shoot-Through protection: prevents the high and low side FET in the same half-bridge from being on simultaneously
+                3.Dead time insertion: a small delay betweem turning one FET off and the other on, giving the first time to fully turn off
+                4.Gate current control:slew rate tuning, affects EMI and switching losses
+        --Feedback for Commutation: Control module needs to know where the rotor is to energize the right phases at the right time...
+                --Sensored: 
+                        1.Hall Effect Sensors: 3 sensors embedded in the motor 120 degress apart, gives a 3-bit digital position(6 possible states)
+                        2.Encoder: higher resolution, used when you need precise position control
+                --Sensorless:
+                        1.Back-Emf(BEMF)zero-crossing detection: when a phase is unenergized, the spinning rotor induces a voltage in it. You watch for when that voltage crosses zero.
+                        2.Field Oriented Control with Observer: math based rotor positio estimation using current and voltage measurements.
+        --Protection:
+                --Overcurrent/short circuit: shunt resistors on the low side measure curernt; if it spikes beyond threshold the gate driver shuts off in nanoseconds. DRV8302 has it built in
+                --Overvoltage: halt the motor hard enough, the motor regenerates energy back into the bus. If nothing absorbs it, the bus voltage spikes and kills FETs. A braking resistor or regen-
+                to-battery circuit handles this.
+                --Undervoltage lockout: if battery sags too low the gate drivers can not fully enhance the FETs, causing them to run in linear region and overheat. UVLO shuts down before that happens.
+                --Thermal Protection: NTC thermistor on the FETs or PCB, MCU reads it and derates or shuts down.
+                --Desaturation Detection: detects if a FET is failing to switch fully on(high Vds=high dissipation=imminent failure)
+        --3 Half-Bridge circuits:
+                Double sided mosfets where each one gives you phases A,B,C and switching them in sequence create a rotating magnetic field that the rotor follows.
+                        --MOSFET Selection: Rds(on) determines conduction losses, Qg(gate charge) affects switching losses and gate driver requirements. Consider the case for RC car voltages low Vds
+                        rating(30-40V) for lower Rds
+                        --PCB layout: high-current loop between FETs and bulk capcitor needs to be as small as possible. Stray inductance here causes voltage spikes that kill FETs
+                        --Bulk Capacitance: large caps across the DC bus absorbs switching transients and supply instantaneous current the battery leads can not deliver fast enough
+
+***
+https://deepbluembedded.com/stm32-esc-pcb-design-foc-esc-bldc-schematic/
+***
+Here is a simple ESC design by DEEPBLUEEMBEDDED let's see what they have to say!
+
+                                =============================
+                                    High-Power Schematics 
+                                =============================
+After looking for a very good while it appears that snippet I will write from Texas Instruments will give a very decent guide in aiding in making your schematic/component selection/pcb layout
+for these high power applications. You do not want to run into EMI, EMC issues down the line over something silly!
+"Motor applications that sustain higher power ratings introduce design considerations that are not required in lower power applications. By looking at the anatomy of the power stage we can
+develop troubleshooting guidelines, a library of external circuits, TI driver product features, or layout techniwues to combat the volatile nature of higher power systems."
+https://www.ti.com/lit/an/slvaf66/slvaf66.pdf?ts=1781208331744
+
+***1.Introduction to High-Power Motor Applications***
+High power motor applications can range anywhere from lower voltage systems that result in hundreds of watts, such as 12-V automotive power seats, to multiple kilowatt systems, such as 60-V
+100-A power tools. Typically these systems use shunt-based current sensing, and non-isolated gate drivers that control large power MOSFETs. While these applications can be powered from a battery
+gridded AC power converted to DC, they all have the common goals to be robust and protected against high current and high voltage events that result from shoot-through, short-circuit, overcurrent,
+MOSFET reverse recovery, or PCB parasitic inductance behavior.
+
+For example, power tools have high power ratings for industrial and household purposes, such as drilling, grinding, cutting, polishing, driving fasteners, and more.
+Requirements include:
+        --Small form factors, as tools are often hand-held
+        --High Effciency, as tools are often battery operated
+        --High Current, as tools must produce high torque to overcome large loads
+        --High Reliability, as safety is a primary concern if the tool fails
+        --Good thermal performance, as high power densities without proper dissipation cause systems to overheat
+
+When designing high power systems, these requirements produce tradeoffs and conflict with each other.
+In the case of power tools, high current, efficiency,and thermal-performance can be increased with a larger board which conflicts with the need of the PCB needing to be a small form factor.
+
+This makes the high power design very important. Like in the case of Electromagnetic Interference (EMI), designing for high power applications is a process of making decisions and planning
+to mitigate problems that may or may not occur.
+In any case the document expands on techniques,equations, considerations and components that you might implement on your power phase with extreme focus on the gate driver and the mosfets!

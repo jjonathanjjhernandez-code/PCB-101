@@ -1,0 +1,101 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "F28E12x" --part "F28E12x_48PT" --package "48PT"
+ * @v2CliArgs --device "F28E120SC" --package "48PT"
+ * @versions {"tool":"1.27.1+4634"}
+ */
+
+/**
+ * These are the peripherals and settings in this configuration
+ */
+const ANALOG1                                        = scripting.addPeripheral("ANALOG");
+ANALOG1.$name                                        = "Analog Inputs for BEMF Readings";
+ANALOG1["A2, GPIO224"].$used                         = false;
+ANALOG1["A3, GPIO242"].$used                         = false;
+ANALOG1.A7.$used                                     = false;
+ANALOG1["A9, GPIO227"].$used                         = false;
+ANALOG1["A10, GPIO230"].$used                        = false;
+ANALOG1["A19, GPIO13"].$used                         = false;
+ANALOG1["A20, GPIO12"].$used                         = false;
+ANALOG1["A14, A15"].$used                            = false;
+ANALOG1["A8/PGA1_OUT"].$used                         = false;
+ANALOG1["A16/PGA1_INP2, GPIO28"].$used               = false;
+ANALOG1["A11/PGA1_INP1"].$used                       = false;
+ANALOG1.A12.$used                                    = false;
+ANALOG1["A21/PGA1_INP3, A6, GPIO226, GPIO228"].$used = false;
+ANALOG1["A4/PGA1_INM1"].$used                        = false;
+const GPIO1                                          = scripting.addPeripheral("GPIO");
+GPIO1.$name                                          = "nFAULT";
+GPIO1["GPIO#"].$assign                               = "GPIO7";
+const GPIO2                                          = scripting.addPeripheral("GPIO");
+GPIO2.$name                                          = "SPIA_PTE";
+GPIO2["GPIO#"].$assign                               = "GPIO33";
+const GPIO3                                          = scripting.addPeripheral("GPIO");
+GPIO3.$name                                          = "DRVOFF";
+GPIO3["GPIO#"].$assign                               = "GPIO0";
+const GPIO4                                          = scripting.addPeripheral("GPIO");
+GPIO4.$name                                          = "ASCIN";
+GPIO4["GPIO#"].$assign                               = "A16/PGA1_INP2, GPIO28";
+const GPIO5                                          = scripting.addPeripheral("GPIO");
+GPIO5.$name                                          = "nSLEEP";
+GPIO5["GPIO#"].$assign                               = "GPIO45";
+const MCPWM1                                         = scripting.addPeripheral("MCPWM");
+MCPWM1.$useCase                                      = "6CH";
+MCPWM1.$name                                         = "PWM Outputs for 3 Phase Drive";
+MCPWM1.$assign                                       = "MCPWM1";
+MCPWM1["MCPWM#_1A"].$assign                          = "GPIO4";
+MCPWM1["MCPWM#_1B"].$assign                          = "GPIO1";
+const MCPWM2                                         = scripting.addPeripheral("MCPWM");
+MCPWM2.$name                                         = "PWM Output for Servo Steering";
+MCPWM2.$assign                                       = "MCPWM3";
+MCPWM2["MCPWM#_1A"].$assign                          = "A16/PGA1_INP2, GPIO28";
+MCPWM2["MCPWM#_1A"].$used                            = false;
+MCPWM2["MCPWM#_2A"].$used                            = false;
+MCPWM2["MCPWM#_2B"].$used                            = false;
+MCPWM2["MCPWM#_3A"].$used                            = false;
+MCPWM2["MCPWM#_3B"].$used                            = false;
+const OTHER1                                         = scripting.addPeripheral("OTHER");
+OTHER1.$name                                         = "JTAG/External Crystal";
+OTHER1.ADCSOCAO.$used                                = false;
+OTHER1.ADCSOCBO.$used                                = false;
+OTHER1.SYNCOUT.$used                                 = false;
+OTHER1.XCLKOUT.$used                                 = false;
+OTHER1.ERRORSTS.$used                                = false;
+const SCI1                                           = scripting.addPeripheral("SCI");
+SCI1.$name                                           = "USB-C to UART Connection";
+SCI1.$assign                                         = "SCIA";
+const SPI1                                           = scripting.addPeripheral("SPI");
+SPI1.$name                                           = "DRV8363 Gate Driver Communication Interface";
+SPI1["SPI@_CLK"].$assign                             = "A20, GPIO12";
+SPI1["SPI@_PICO"].$assign                            = "GPIO16";
+SPI1["SPI@_PTE"].$used                               = false;
+
+/**
+ * Pinmux solution for unlocked pins/peripherals. This ensures that minor changes to the automatic solver in a future
+ * version of the tool will not impact the pinmux you originally saw.  These lines can be completely deleted in order to
+ * re-solve from scratch.
+ */
+ANALOG1.$suggestSolution                                = "ANALOG";
+ANALOG1.A5.$suggestSolution                             = "A5";
+ANALOG1.A1.$suggestSolution                             = "A1";
+ANALOG1["A0/CMP3_LITE_DACL/PGA1_INM2"].$suggestSolution = "A0/CMP3_LITE_DACL/PGA1_INM2";
+GPIO1.$suggestSolution                                  = "GPIO7";
+GPIO2.$suggestSolution                                  = "GPIO33";
+GPIO3.$suggestSolution                                  = "GPIO0";
+GPIO4.$suggestSolution                                  = "GPIO28";
+GPIO5.$suggestSolution                                  = "GPIO45";
+MCPWM1["MCPWM#_2A"].$suggestSolution                    = "A3, GPIO242";
+MCPWM1["MCPWM#_2B"].$suggestSolution                    = "A21/PGA1_INP3, A6, GPIO226, GPIO228";
+MCPWM1["MCPWM#_3A"].$suggestSolution                    = "A9, GPIO227";
+MCPWM1["MCPWM#_3B"].$suggestSolution                    = "A10, GPIO230";
+MCPWM2["MCPWM#_1B"].$suggestSolution                    = "GPIO29";
+OTHER1.$suggestSolution                                 = "OTHER";
+OTHER1.TDO.$suggestSolution                             = "GPIO37/TDO";
+OTHER1.TDI.$suggestSolution                             = "GPIO35/TDI";
+OTHER1.X1.$suggestSolution                              = "GPIO19, X1";
+OTHER1.X2.$suggestSolution                              = "GPIO18, X2";
+SCI1["SCI@_RX"].$suggestSolution                        = "GPIO3";
+SCI1["SCI@_TX"].$suggestSolution                        = "GPIO2";
+SPI1.$suggestSolution                                   = "SPIA";
+SPI1["SPI@_POCI"].$suggestSolution                      = "A19, GPIO13";

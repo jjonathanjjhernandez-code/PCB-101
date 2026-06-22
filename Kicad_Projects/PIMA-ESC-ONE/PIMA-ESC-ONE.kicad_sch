@@ -1,0 +1,198 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "e3f4cad6-e830-4df3-9d34-596ed2d44f7e")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 118.11 40.64)
+		(size 62.23 124.46)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 179 255 11 1)
+		)
+		(uuid "032752c5-979f-4db5-8041-a45111e76fae")
+		(property "Sheetname" "Gate-Driver(FET control)"
+			(at 118.11 39.9284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Gate-Driver(FET control).kicad_sch"
+			(at 118.11 165.6846 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PIMA-ESC-ONE"
+				(path "/e3f4cad6-e830-4df3-9d34-596ed2d44f7e"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 0 67.31)
+		(size 83.82 93.98)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 179 255 11 1)
+		)
+		(uuid "07838335-812f-42b2-a47f-94f6a12d2562")
+		(property "Sheetname" "MCU(control module)"
+			(at 0 66.5984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "MCU(control module).kicad_sch"
+			(at 0 161.8746 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PIMA-ESC-ONE"
+				(path "/e3f4cad6-e830-4df3-9d34-596ed2d44f7e"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at -1.27 -66.04)
+		(size 129.54 83.82)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 179 255 11 1)
+		)
+		(uuid "9390c79a-02ca-4d13-aa86-596a1660b502")
+		(property "Sheetname" "Power-Distribute"
+			(at -1.27 -66.7516 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power-Distribute.kicad_sch"
+			(at -1.27 18.3646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PIMA-ESC-ONE"
+				(path "/e3f4cad6-e830-4df3-9d34-596ed2d44f7e"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 215.9 81.28)
+		(size 76.2 81.28)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 179 255 11 1)
+		)
+		(uuid "ba080c60-58a7-40b5-a6e5-f18fc7803a71")
+		(property "Sheetname" "Power-Mosfets(FETs)"
+			(at 215.9 80.5684 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Power-Mosfets(FETs).kicad_sch"
+			(at 215.9 163.1446 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "PIMA-ESC-ONE"
+				(path "/e3f4cad6-e830-4df3-9d34-596ed2d44f7e"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)

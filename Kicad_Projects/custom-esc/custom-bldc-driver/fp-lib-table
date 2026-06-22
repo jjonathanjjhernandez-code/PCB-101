@@ -1,0 +1,6 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "DRV8302DCAR") (type "KiCad") (uri "${KIPRJMOD}/DRV8302DCAR/footprints.pretty") (options "") (descr ""))
+	(lib (name "DRV8363RGZR") (type "KiCad") (uri "${KIPRJMOD}/DRV8363RGZR/DRV8363RGZR.pretty") (options "") (descr ""))
+	(lib (name "CSD18510KCS") (type "KiCad") (uri "${KIPRJMOD}/CSD18510KCS/CSD18510KCS.pretty") (options "") (descr ""))
+)

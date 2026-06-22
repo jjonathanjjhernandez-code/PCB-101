@@ -1,0 +1,334 @@
+(footprint "XTAL_ECS-160-20-4X-DU"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at -2.597085 -3.637935 0)
+		(layer "F.SilkS")
+		(uuid "7936d063-a141-49d5-9e49-fb1ae525e7fb")
+		(effects
+			(font
+				(size 1.000811 1.000811)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "XTAL_ECS-160-20-4X-DU"
+		(at 7.579605 3.749205 0)
+		(layer "F.Fab")
+		(uuid "839eacf9-057c-4200-8e52-808007cdbc50")
+		(effects
+			(font
+				(size 1.001929 1.001929)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "861bb137-206e-49ba-b804-ffdeef5fb25d")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c204a717-72b8-439f-aa4d-37c89ad3bb09")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -5.675 1.01)
+		(end -5.675 -1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0f153274-3d98-478a-b7fb-5fb08056ee04")
+	)
+	(fp_line
+		(start -4.405 -2.33)
+		(end 4.405 -2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "bf530979-9b37-41fd-8c63-8d978bde3d31")
+	)
+	(fp_line
+		(start 4.405 2.33)
+		(end -4.405 2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8e1bfe45-748e-4b3d-9e9c-cac740dafc74")
+	)
+	(fp_line
+		(start 5.675 -1.01)
+		(end 5.675 1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8f460bd2-92e0-4400-b3f1-3c65effd80b3")
+	)
+	(fp_arc
+		(start -5.675 -1.01)
+		(mid -5.313381 -1.933026)
+		(end -4.405 -2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "fc158e05-5a21-443a-adb5-df3fd180f78f")
+	)
+	(fp_arc
+		(start -4.405 2.33)
+		(mid -5.313381 1.933026)
+		(end -5.675 1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7f2465b9-f4e5-4be5-946e-46f730527de8")
+	)
+	(fp_arc
+		(start 4.405 -2.33)
+		(mid 5.313381 -1.933026)
+		(end 5.675 -1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b3eaa7b4-044e-4028-9f38-8339059b0736")
+	)
+	(fp_arc
+		(start 5.675 1.01)
+		(mid 5.313381 1.933026)
+		(end 4.405 2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a957a76d-0b48-42c0-b9e1-e5665ac783db")
+	)
+	(fp_line
+		(start -6 1.01)
+		(end -6 -1.01)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9df14a81-f999-44f2-ac88-36ed36c0784a")
+	)
+	(fp_line
+		(start -4.43 -2.58)
+		(end 4.43 -2.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "da229ad4-1ed9-4ba0-9f13-a2adbcf45949")
+	)
+	(fp_line
+		(start 4.43 2.58)
+		(end -4.43 2.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "bc512ae2-60bf-457f-bccf-cc29eb80a9bc")
+	)
+	(fp_line
+		(start 6 -1.01)
+		(end 6 1.01)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "42437942-c96a-45af-85ab-13f8665140c7")
+	)
+	(fp_arc
+		(start -6 -1.01)
+		(mid -5.540158 -2.120158)
+		(end -4.43 -2.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "23178ed1-e732-46df-92e2-a080d313fd0d")
+	)
+	(fp_arc
+		(start -4.43 2.58)
+		(mid -5.540158 2.120158)
+		(end -6 1.01)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "1241b68b-205e-44ed-85a1-6a327b8718b0")
+	)
+	(fp_arc
+		(start 4.43 -2.58)
+		(mid 5.540158 -2.120158)
+		(end 6 -1.01)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5c63504d-b555-46f4-a1c6-9099b780c27c")
+	)
+	(fp_arc
+		(start 6 1.01)
+		(mid 5.540158 2.120158)
+		(end 4.43 2.58)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "d4408195-423c-47e6-a696-fe1fce54e11b")
+	)
+	(fp_line
+		(start -5.675 1.01)
+		(end -5.675 -1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "4d660d42-72ea-4985-ac59-047a7cec5243")
+	)
+	(fp_line
+		(start -4.405 -2.33)
+		(end 4.405 -2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a96bc335-835f-40d6-b43d-43bba78f1562")
+	)
+	(fp_line
+		(start 4.405 2.33)
+		(end -4.405 2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "aa654d1a-8fca-4d62-a0ce-4d5e2e5ac1c0")
+	)
+	(fp_line
+		(start 5.675 -1.01)
+		(end 5.675 1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "62075550-cf15-4e98-b4d9-9722eab97ed9")
+	)
+	(fp_arc
+		(start -5.675 -1.01)
+		(mid -5.313381 -1.933026)
+		(end -4.405 -2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "75b84b1b-c0c2-4503-bd77-3c53397fd62e")
+	)
+	(fp_arc
+		(start -4.405 2.33)
+		(mid -5.313381 1.933026)
+		(end -5.675 1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "caa1e1cb-183b-42a4-a4ad-a885a108e38c")
+	)
+	(fp_arc
+		(start 4.405 -2.33)
+		(mid 5.313381 -1.933026)
+		(end 5.675 -1.01)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3093e1c2-ea35-462a-bb2a-cb22b13b1187")
+	)
+	(fp_arc
+		(start 5.675 1.01)
+		(mid 5.313381 1.933026)
+		(end 4.405 2.33)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b390cb10-9c56-460c-bb2c-3408d8485731")
+	)
+	(pad "1" thru_hole circle
+		(at -2.44 0)
+		(size 1.03 1.03)
+		(drill 0.63)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(solder_mask_margin 0.102)
+		(uuid "54c00823-9e27-4847-a545-8d5a816b3564")
+	)
+	(pad "2" thru_hole circle
+		(at 2.44 0)
+		(size 1.03 1.03)
+		(drill 0.63)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(solder_mask_margin 0.102)
+		(uuid "7d1d89e2-0bcd-4718-b70e-9e5d5f7a8d50")
+	)
+	(embedded_fonts no)
+	(model "C:/Users/jjona/Kicad_Projects/Custom/Custom-Footprints/ECS-160-20-4X-DU/ECS-160-20-4X-DU.step"
+		(offset
+			(xyz 0 0 0.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
+)
