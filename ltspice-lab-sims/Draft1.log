@@ -1,0 +1,18 @@
+LTspice 26.0.2 for Windows
+Circuit: C:\Users\jjona\OneDrive\Documents\ltspice-lab-sims\Draft1.net
+Start Time: Mon Jun 15 00:17:14 2026
+solver = Normal
+Maximum thread count: 16
+tnom = 27
+temp = 27
+method = trap
+C:\Users\jjona\OneDrive\Documents\ltspice-lab-sims\Draft1.net(4): WARNING: Specified period is not longer than the sum of Trise, Tfall, and Ton. Increasing period to 0.001.
+
+V2 N002 0 PULSE(0 5 1n 0.5m 0.5m 1n 0.1m)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Direct Newton iteration succeeded in finding operating point.
+Total elapsed time: 0.032 seconds.
+
+Files loaded:
+C:\Users\jjona\OneDrive\Documents\ltspice-lab-sims\Draft1.net
+
